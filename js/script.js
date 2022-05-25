@@ -69,7 +69,9 @@ var data = [];
 // validate form
 function validateForm(e) {
   e.preventDefault();
-  let firstname = document.getElementById("firstname").value;
+  let firstname = document.getElementById("firstname");
+  validate(/[a-zA-Z]{3,20}/g, firstname);
+
   let lastname = document.getElementById("lastname").value;
   let email = document.getElementById("email").value;
   let phone = document.getElementById("phone").value;
@@ -82,7 +84,7 @@ function validateForm(e) {
   let maritalStatus = getMaritalStatus();
 
   let entry = {
-    firstname: firstname,
+    firstname: firstname.value,
     lastname: lastname,
     email: email,
     phone: phone,
@@ -94,6 +96,14 @@ function validateForm(e) {
   };
 
   console.log(entry);
+}
+
+function validate(pattern, variable) {
+  if (pattern.test(variable.value)) {
+    return true;
+  }
+  variable.value = "";
+  return alert(variable.id + " is not correct, please verify");
 }
 
 function getMaritalStatus() {
